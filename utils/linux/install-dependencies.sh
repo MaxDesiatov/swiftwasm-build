@@ -12,7 +12,7 @@ sudo apt install -y \
   systemtap-sdt-dev tzdata rsync wget llvm zip unzip
 sudo apt clean
 
-SOURCE_PATH="$( cd "$(dirname $0)/../../../.." && pwd )" 
+SOURCE_PATH="$( cd "$(dirname $0)/../.." && pwd )" 
 SWIFT_PATH=$SOURCE_PATH/swift
 cd $SWIFT_PATH
 
