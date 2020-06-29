@@ -1,7 +1,7 @@
 #/bin/bash
 
 set -ex
-SOURCE_PATH="$(cd "$(dirname $0)" && pwd)"
+SOURCE_PATH="$(cd "$(dirname $0)/.." && pwd)"
 UTILS_PATH="$(cd "$(dirname $0)" && pwd)"
 
 case $(uname -s) in

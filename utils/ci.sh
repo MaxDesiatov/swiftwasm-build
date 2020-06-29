@@ -2,7 +2,9 @@
 
 set -ex
 
-git clone https://github.com/apple/swift.git
+if [ ! -e swift ]; then
+  git clone https://github.com/apple/swift.git
+fi
 
 SOURCE_PATH=$PWD
 UTILS_PATH=$SOURCE_PATH/utils
