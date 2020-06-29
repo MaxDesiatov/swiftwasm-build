@@ -1,0 +1,60 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  linux_build:
+    timeout-minutes: 0
+    runs-on: ubuntu-18.04
+
+    steps:
+      - name: Free disk space
+        run: |
+          df -h
+          sudo apt-get purge libgcc-9-dev gcc-9 libstdc++-9-dev
+          sudo swapoff -a
+          sudo rm -f /swapfile
+          sudo apt clean
+          docker rmi $(docker image ls -aq)
+          df -h
+      - uses: actions/checkout@v1
+        with:
+          path: swift
+      - uses: actions/cache@v1
+        with:
+          path: ../build-cache
+          key: ${{ runner.os }}-sccache-v9
+      - name: Build Linux installable archive
+        run: |
+          ./utils/webassembly/ci.sh
+      - name: Upload Linux installable archive
+        uses: actions/upload-artifact@v1
+        with:
+          name: linux-installable
+          path: ../swift-wasm-host-DEVELOPMENT-SNAPSHOT-ubuntu18.04.tar.gz
+
+  macos_build:
+    timeout-minutes: 0
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          path: swift
+      - uses: actions/cache@v1
+        with:
+          path: ../build-cache
+          key: ${{ runner.os }}-sccache-v9
+      - name: Build macOS installable archive
+        run: ./utils/webassembly/ci.sh
+      - name: Upload macOS installable archive
+        uses: actions/upload-artifact@v1
+        with:
+          name: macos-installable
+          path: ../swift-wasm-host-DEVELOPMENT-SNAPSHOT-osx.tar.gz
