@@ -16,7 +16,7 @@ SOURCE_PATH="$( cd "$(dirname $0)/../.." && pwd )"
 SWIFT_PATH=$SOURCE_PATH/swift
 cd $SWIFT_PATH
 
-./utils/update-checkout --clone --scheme wasm --skip-repository swift
+./utils/update-checkout --clone
 
 cd $SOURCE_PATH
 
