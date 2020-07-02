@@ -52,7 +52,9 @@ jobs:
           path: ../build-cache
           key: ${{ runner.os }}-sccache-v9
       - name: Build macOS installable archive
-        run: ./utils/ci.sh
+        run: |
+          sudo xcode-select --switch /Applications/Xcode_12_beta.app/Contents/Developer/
+          ./utils/ci.sh
       - name: Upload macOS installable archive
         uses: actions/upload-artifact@v1
         with:
